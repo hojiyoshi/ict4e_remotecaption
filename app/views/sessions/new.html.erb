@@ -1,0 +1,55 @@
+<div id="introPage" class="tableArea">
+  <%= render :partial => 'layouts/top_explain' %>
+</div>
+<div id="loginPage">
+  <div class="tableArea">
+    <div class="captionArea">
+      <b>ログインはこちら</b>
+    </div>
+    <div class="marginArea">
+      インターネット要約筆記依頼サービスを利用するには、ログインが必要です。
+    </div>
+    <div class="spacer_mini"></div>
+    <div><%=flash[:notices]%></div>
+    <div class="spacer_mini"></div>
+    <div>
+      <div class="formCaption"><%= label 'users','email', 'メールアドレス：'%></div>
+      <div><%= text_field 'users','email', :size=> 25, :maxlength=>100, :value=>@user_email, :class=>'login_form' %></div>
+    </div>
+    <div class="spacer_mini"></div>
+    <div>
+      <div class="formCaption"><%= label 'users','password', 'パスワード：'%></div>
+      <div><%= password_field 'users','password', :size=> 25, :maxlength=>100, :class=>'login_form' %></div>
+    </div>
+    <div class="spacer_mini"></div>
+    <div class="marginArea"><%= check_box 'users','remember_me' %><%= label 'users','remember_me', '自動ログインを行う。'%></div>
+    <div class="spacer_mini"></div>
+    <div class="marginArea"><%= submit_tag 'ログイン' %></div>
+    <div class="spacer_mini"></div>
+    <div class="marginArea">
+      <%= link_to(image_tag('forgot_pass.gif', :alt =>'パスワードを忘れた場合',:border=>0),ICT4E_ACCOUNTS_URL+'/reminds/remotecaption') %>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="tableArea">
+    <div class="captionArea">
+      <b>ユーザ登録はこちら</b>
+    </div>
+    <div class="marginArea">
+      インターネット要約筆記サービスのユーザ登録を行いたい方は「ユーザ登録」をクリックしてください。
+    </div>
+    <div class="spacer_mini"></div>
+    <div class="marginArea">
+      <%= link_to(image_tag('user_regist.gif', :alt =>'ユーザ登録はこちら',:border=>0),ICT4E_ACCOUNTS_URL+'/signup/remotecaption/term') %>
+    </div>
+    <div class="marginArea">
+      本サービスに参加したい要約筆記サークルの方は、「サークル登録」をクリックしてください。
+    </div>
+    <div class="spacer_mini"></div>
+    <div class="marginArea">
+      <%= link_to(image_tag('circle_regist.gif', :alt =>'ユーザ登録はこちら',:border=>0),ICT4E_ACCOUNTS_URL+'/signup/remotecaption/term') %>
+    </div>
+  </div>
+  
+</div>
+<div class="spacer"></div>

@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= stylesheet_link_tag('common') %>
+    <%= javascript_include_tag 'jquery' %>
+    <%= javascript_include_tag 'jquery_blockUI' %>
+    <%= javascript_include_tag 'application' %>
+    <%= yield :html_header %>
+    <title>みんなのICT&nbsp;インターネット要約筆記依頼サービス - <%=@title%></title>
+  </head>
+  <body>
+    <div id="page">
+      <div id="headerArea">
+        <div class="divLeft">
+          <%= link_to(image_tag('logo.gif', :alt =>'インターネット要約筆記トップページへリンク',:border=>0), login_path) %>
+        </div>
+      </div>
+      <div CLASS="clearDiv"></div>
+      <hr/>
+      <div id="contentArea">
+        <%= yield %>
+      </div>
+      <div CLASS="clearDiv"></div>
+      <hr/>
+      <div id="footerArea">
+        <div CLASS="divLeft"><%= link_to(image_tag('ict4_logo.gif', :alt =>'ICT4everyoneトップページへリンク',:border=>0),ICT4E_URL)%></div>
+        <div><%= link_to(image_tag( 'mail.gif', :alt =>'お問い合わせはこちら',:border=>0),'mailto:' + REMOTE_CAPTION_EMAIL,:popup => 'true') %></div>
+      </div>
+    </div>
+  </body>
+</html>
