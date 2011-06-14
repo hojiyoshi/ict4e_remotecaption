@@ -1,0 +1,156 @@
+<h1 id="honbun">ユーザ情報登録<%= '：エラー' unless error_messages_for('summary_user').blank? %></h1>
+
+<table class="col">
+  <tr>
+    <td>STEP - 1<br />
+      利用立場の選択
+    </td>
+    <td><b>STEP - 2<br />
+      ユーザ情報の登録</b>
+    </td>
+    <td>STEP - 3<br />
+      ユーザ情報の確認
+    </td>
+    <td>STEP - 4<br />
+      ユーザ登録の完了
+    </td>
+  </tr>
+</table>
+
+<p>
+<% if error_messages_for('summary_user').blank? %>
+  要約筆記依頼サービスの入力者情報を登録します。
+<% else %>
+  エラー内容を確認し、入力情報を修正後、「次の画面に進む」ボタンを押してください。
+<% end %>
+</p>
+
+<% form_tag :controller => 'users', :action => 'confirm' do -%>
+
+<%= render :partial => 'hidden_type' %>
+<%= render :partial => 'hidden_user' %>
+
+<% fields_for :summary_user do |f| %>
+<table class="col">
+  <tr>
+    <th><label for="summary_user_circle">参加サークル<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">参加サークルを1つ以上チェックを入れてください。</span><br />
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="input_career">入力者暦<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">入力者としての経験年月を選択してください。</span><br />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span class="fSmall">入力者暦についてご自由に記載ください。</span><br />
+      <%= f.text_area :input_career_other, :rows =>4, :cols =>60 %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="input_speed">入力速度<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">1分間に入力（手書き）可能な漢字かな混じり文字数を選択してください。</span><br />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span class="fSmall">入力速度についてご自由に記載ください。</span><br />
+      <%= f.text_area :input_speed_other, :rows =>4, :cols =>60 %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="summary_inputer_joinday">活動可能曜日<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">入力者として活動可能な曜日を1つ以上チェックを入れてください。</span><br />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span class="fSmall">活動可能曜日に関してご自由に記載ください。</span><br />
+      <%= f.text_area :join_day_other, :rows =>4, :cols =>60 %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="summary_inputer_jointime">活動可能時間帯<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">入力者として活動可能な時間帯を1つ以上チェックを入れてください。</span><br />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span class="fSmall">活動可能時間帯に関してご自由に記載ください。</span><br />
+      <%= f.text_area :join_time_other, :rows =>4, :cols =>60 %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="summary_inputer_like">得意分野<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">要約筆記に関して得意な分野を1つ以上チェックを入れてください。</span><br />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span class="fSmall">得意分野に関してご自由に記載ください。</span><br />
+      <%= f.text_area :like_field_other, :rows =>4, :cols =>60 %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="summary_inputer_dislike">苦手分野<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">要約筆記に関して苦手な分野を1つ以上チェックを入れてください。</span><br />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span class="fSmall">苦手分野に関してご自由に記載ください。</span><br />
+      <%= f.text_area :dislike_field_other, :rows =>4, :cols =>60 %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="network_env">インターネット環境</label></th>
+    <td>
+      <span class="fSmall">インターネット要約筆記を利用する場合、ご使用の環境を選択してください。</span><br />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span class="fSmall">インターネット環境についてご自由に記載ください。</span><br />
+      <%= f.text_area :network_env_other, :rows =>4, :cols =>60 %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="summary_inputer_dislike">保有資格</label></th>
+    <td>
+      <span class="fSmall">保有する資格に関してご自由に記載ください。</span><br />
+      <%= f.text_area :qualification_data, :rows =>4, :cols =>60 %>
+    </td>
+  </tr>
+
+</table>
+<% end %>
+
+<p>
+  <div style="float: left">
+    <%= submit_tag '確認画面へ', :id => 'next', :name => 'next' %>&nbsp;
+    <% end -%>
+    <% form_tag({:controller => 'users', :action => 'new', :phase => 'user'}) do -%>
+  </div>
+  <div>
+    <%= render :partial => 'hidden_type' %>
+    <%= render :partial => 'hidden_user' %>
+    <%= submit_tag '前画面に戻る', :id => 'back', :name => 'back' %>
+    <% end -%>
+  </div>
+</p>

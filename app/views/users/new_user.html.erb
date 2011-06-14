@@ -1,0 +1,120 @@
+<h1 id="honbun">ユーザ情報登録<%= '：エラー' unless error_messages_for('summary_user').blank? %></h1>
+
+<table class="col">
+  <tr>
+    <td>STEP - 1<br />
+      利用立場の選択
+    </td>
+    <td><b>STEP - 2<br />
+      ユーザ情報の登録</b>
+    </td>
+    <td>STEP - 3<br />
+      ユーザ情報の確認
+    </td>
+    <td>STEP - 4<br />
+      ユーザ登録の完了
+    </td>
+  </tr>
+</table>
+
+<p>
+<% if error_messages_for('summary_user').blank? %>
+  要約筆記依頼サービスのユーザ情報を登録します。
+<% else %>
+  エラー内容を確認し、入力情報を修正後、「次の画面に進む」ボタンを押してください。
+<% end %>
+</p>
+
+<% form_tag get_user_form(@summary_user.inputer_flag) do -%>
+<%= render :partial => 'hidden_type' %>
+
+<%= template_error_messages_for 'summary_user' %>
+
+<% fields_for :summary_user do |f| %>
+<table class="col">
+  <tr>
+    <th>Eメール</th>
+    <td><%= h current_user.email %></td>
+  </tr>
+  <tr>
+    <th><label for="name_kanji">お名前（漢字）<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">入力例：要約　太郎</span><br />
+      <%= f.text_field :name_kanji, :id => 'name_kanji', :size => 30, :class => "textB fullwidth-kana", :required => "required" %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="name_kana">お名前（ふりがな）<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">入力例：ようやく　たろう</span><br />
+      <%= f.text_field :name_kana, :id => 'name_kana', :size => 30, :class => "textB fullwidth-kana", :required => "required" %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="phone_number">電話番号<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">入力例：000-1234-5678（市外局番より半角数字で入力してください。）</span><br />
+      <%= f.text_field :phone_number, :id => "phone_number", :style => "ime-mode: disabled;", :size => "15", :maxlength => "15", :class => "textB ascii" %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="phone_contact">電話連絡の可否<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">コーディネータからの電話連絡の可否を選択してください。</span><br />
+      <%= f.collection_select(:phone_contact,
+        Ict4eMasterDatum.find(:all,:conditions => ['application_name = ?','phone_contact'],:order => 'sort_order ASC'),
+        :id,:item_data,:prompt => '選択してください。') %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="application_type">利用される方について<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <span class="fSmall">ご自身について当てはまるものを選択してください。</span><br />
+      <%= f.collection_select(:application_type,
+        Ict4eMasterDatum.find(:all,:conditions => ['application_name = ?','application_type'],:order => 'sort_order ASC'),
+        :id,:item_data,:prompt => '選択してください。') %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="fax_number">FAX番号</label></th>
+    <td>
+      <span class="fSmall">入力例：000-1234-5678（市外局番より半角数字で入力してください。）</span><br />
+      <%= f.text_field :fax_number, :id => "fax_number", :style => "ime-mode: disabled;", :size => "15", :maxlength => "15", :class => "textB ascii" %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="cellphone_number">携帯電話番号</label></th>
+    <td>
+      <span class="fSmall">入力例：090-1234-5678<br />（コーディネータから携帯電話への連絡を希望する場合に半角数字で入力してください。）</span><br />
+      <%= f.text_field :cellphone_number, :id => "cellphone_number", :style => "ime-mode: disabled;", :size => "15", :maxlength => "15", :class => "textB ascii" %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="cellphone_email">携帯電話メールアドレス</label></th>
+    <td>
+      <span class="fSmall">入力例：taro@youyaku.com<br />（依頼に関する通知を携帯電話のメールアドレスに送信したい場合に入力してください。）</span><br />
+      <%= f.text_field :cellphone_email, :id => "cellphone_email", :style => "ime-mode: disabled;", :size => "15", :maxlength => "15", :class => "textB ascii" %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="skype_id">スカイプID</label></th>
+    <td>
+      <span class="fSmall">入力例：taro_skype（インターネット要約筆記を利用する場合に入力してください。）</span><br />
+      <%= f.text_field :skype_id, :id => "skype_id", :style => "ime-mode: disabled;", :size => "15", :maxlength => "15", :class => "textB ascii" %>
+    </td>
+  </tr>
+</table>
+  <% end %>
+
+<p>
+  <div style="float: left">
+    <%= submit_tag @summary_user.inputer_flag == 1 ? '次の画面へ':'確認画面へ', :id => 'next', :name => 'next' %>&nbsp;
+    <% end -%>
+    <% form_tag({:controller => 'users', :action => 'new', :phase => 'type'}) do -%>
+  </div>
+  <div>
+    <%= render :partial => 'hidden_type' %>
+    <%= submit_tag '前画面に戻る', :id => 'back', :name => 'back' %>
+    <% end -%>
+  </div>
+</p>

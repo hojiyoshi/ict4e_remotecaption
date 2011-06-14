@@ -1,0 +1,81 @@
+<h1 id="honbun">ユーザ情報登録：確認</h1>
+<p>以下の内容でよろしければ、「この内容でユーザ情報を登録する」ボタンを押してください。</p>
+<% form_tag :controller => 'users', :action => 'create' do -%>
+
+<%= render :partial => 'hidden_type' %>
+<%= render :partial => 'hidden_user' %>
+<table class="col">
+  <tr>
+    <th>Eメール</th>
+    <td><%= h current_user.email %></td>
+  </tr>
+  <tr>
+    <th><label for="name_kanji">お名前（漢字）</label></th>
+    <td>
+      <%= h @user_common.name_kanji %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="name_kana">お名前（ふりがな）</label></th>
+    <td>
+      <%= h @user_common.name_kana %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="phone_number">電話番号</label></th>
+    <td>
+      <%= h @user_common.phone_number %>
+    </td>
+  </tr>
+
+  <tr>
+    <th><label for="phone_contact">電話連絡の可否</label></th>
+    <td>
+      <%= Ict4eMasterDatum.find(@summary_user.phone_contact).item_data %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="application_type">利用される方について</label></th>
+    <td>
+      <%= Ict4eMasterDatum.find(@summary_user.application_type).item_data %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="fax_number">FAX番号</label></th>
+    <td>
+      <%= h @user_common.fax_number %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="cellphone_number">携帯電話番号</label></th>
+    <td>
+      <%= h @user_common.cellphone_number %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="cellphone_email">携帯電話メールアドレス</label></th>
+    <td>
+      <%= h @user_common.cellphone_email %>
+    </td>
+  </tr>
+  <tr>
+    <th><label for="skype_id">スカイプID</label></th>
+    <td>
+      <%= h @summary_user.skype_id %>
+    </td>
+  </tr>
+</table>
+
+<p>
+  <div style="float: left">
+    <%= submit_tag 'この内容でユーザ情報を登録する', :id => 'next', :name => 'next' %>&nbsp;
+    <% end -%>
+    <% form_tag({:controller => 'users', :action => 'new', :phase => @summary_user.inputer_flag == 1? 'inputer':'user'}) do -%>
+  </div>
+  <div>
+    <%= render :partial => 'hidden_type' %>
+    <%= render :partial => 'hidden_user' %>
+    <%= submit_tag '前画面に戻る', :id => 'back', :name => 'back' %>
+    <% end -%>
+  </div>  
+</p>

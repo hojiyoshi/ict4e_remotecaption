@@ -1,0 +1,11 @@
+<% fields_for :summary_user do |f| %>
+  <%= f.hidden_field(:name_kanji, :value=>@summary_user.name_kanji) %>
+  <%= f.hidden_field(:name_kana, :value=>@summary_user.name_kana) %>
+  <%= f.hidden_field(:phone_number, :value=>@summary_user.phone_number) %>
+  <%= f.hidden_field(:fax_number, :value=>@summary_user.fax_number) %>
+  <%= f.hidden_field(:cellphone_number, :value=>@summary_user.cellphone_number) %>
+  <%= f.hidden_field(:cellphone_email, :value=>@summary_user.cellphone_email) %>
+  <%= f.hidden_field(:phone_contact, :value=>@summary_user.phone_contact) %>
+  <%= f.hidden_field(:application_type, :value=>@summary_user.application_type) %>
+  <%= f.hidden_field(:skype_id, :value=>@summary_user.skype_id) %>
+<% end -%>

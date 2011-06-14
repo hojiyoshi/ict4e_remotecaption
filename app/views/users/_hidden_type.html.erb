@@ -1,0 +1,4 @@
+<% fields_for :summary_user do |f| %>
+  <%= f.hidden_field(:inputer_flag, :value=>@summary_user.inputer_flag) %>
+  <%= f.hidden_field(:user_flag, :value=>@summary_user.user_flag) %>
+<% end -%>

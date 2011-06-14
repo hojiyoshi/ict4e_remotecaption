@@ -1,0 +1,59 @@
+ja: 
+  activerecord: 
+    models: 
+      summary_user: "summary_user"  #g
+      user: "user"  #g
+      user_common: "user_common"  #g
+
+    attributes: 
+      summary_user: 
+        application_type: "利用される方について"  #g
+        phone_contact: "電話連絡の可否"  #g
+        inputer_flag: "inputer_flag"  #g
+        cordinater_flag: "cordinater_flag"  #g
+        user_type_flag: "利用する立場"  #g
+        network_env: "network_env"  #g
+        network_env_other: "network_env_other"  #g
+        input_career: "input_career"  #g
+        input_career_other: "input_career_other"  #g
+        input_speed: "入力速度"  #g
+        input_speed_other: "input_speed_other"  #g
+        join_day_other: "join_day_other"  #g
+        join_time_other: "join_time_other"  #g
+        like_field_other: "like_field_other"  #g
+        dislike_field_other: "dislike_field_other"  #g
+        qualification_data: "qualification_data"  #g
+        inputer_status: "Inputerステータス"  #g
+        name_kanji: "お名前（漢字）"  #g
+        name_kana: "お名前（ふりがな）"  #g
+        phone_number: "電話番号"  #g
+        fax_number: "FAX番号"  #g
+        cellphone_number: "携帯電話番号"  #g
+        cellphone_email: "携帯電話メールアドレス"  #g
+        user: "user"  #g
+
+      user: 
+        email: "email"  #g
+        crypted_password: "crypted_password"  #g
+        salt: "salt"  #g
+        remember_token: "remember_token"  #g
+        remember_token_expires_at: "remember_token_expires_at"  #g
+        activation_code: "activation_code"  #g
+        activated_at: "activated_at"  #g
+        uid: "uid"  #g
+        user_type: "user_type"  #g
+        user_common: "user_common"  #g
+        summary_user: "summary_user"  #g
+
+      user_common: 
+        name_kanji: "name_kanji"  #g
+        name_kana: "name_kana"  #g
+        phone_number: "phone_number"  #g
+        fax_number: "ファックス番号"  #g
+        cellphone_number: "cellphone_number"  #g
+        cellphone_email: "cellphone_email"  #g
+        zip_code: "zip_code"  #g
+        user_address1: "user_address1"  #g
+        user_address2: "ユーザーアドレス2"  #g
+        user: "user"  #g
+
