@@ -1,9 +1,12 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
   skip_before_filter :login_required
+  skip_before_filter :summary_user_exist?
   
   # render new.erb.html
   def new
+    ## ページタイトル/ナビゲーションタイトルの初期設定
+    @title = 'ログイン'
     unless request.mobile?
       #### Cookieより保存されたメールアドレスを取得する。
       @user_email = cookies[:user_email]
@@ -12,7 +15,7 @@ class SessionsController < ApplicationController
 
   def create
     logout_keeping_session!
-    user = User.authenticate(params[:login], params[:password])
+    user = User.authenticate(params[:users][:email], params[:users][:password])
     if user
       # Protects against session fixation attacks, causes request forgery
       # protection if user resubmits an earlier form using back
@@ -25,7 +28,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "Logged in successfully"
     else
       note_failed_signin
-      @login       = params[:login]
+      @login       = params[:email]
       @remember_me = params[:remember_me]
       render :action => 'new'
     end
@@ -40,7 +43,7 @@ class SessionsController < ApplicationController
 protected
   # Track failed login attempts
   def note_failed_signin
-    flash[:error] = "Couldn't log you in as '#{params[:login]}'"
-    logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
+    flash[:error] = "Couldn't log you in as '#{params[:email]}'"
+    logger.warn "Failed login for '#{params[:email]}' from #{request.remote_ip} at #{Time.now.utc}"
   end
 end

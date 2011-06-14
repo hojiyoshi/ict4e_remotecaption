@@ -1,5 +1,12 @@
 module UsersHelper
-  
+  #
+  def get_user_form(inputer_flag)
+    if inputer_flag == 1
+      return :controller => 'users', :action => 'new', :phase => 'inputer'
+    else
+      return :controller => 'users', :action => 'confirm'
+    end
+  end
   #
   # Use this to wrap view elements that the user can't access.
   # !! Note: this is an *interface*, not *security* feature !!

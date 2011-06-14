@@ -1,11 +1,64 @@
 class UsersController < ApplicationController
   skip_before_filter :login_required
+  skip_before_filter :summary_user_exist?
   
+  # 初期化メソッド（最初に呼ばれる）
+  def initialize
+    # ページタイトル/ナビゲーションタイトルの初期設定
+    @title = '：要約筆記依頼サービス：みんなのICT'
+
+    # ナビゲーションタイトルの設定
+    @nav_title = ['ユーザー情報登録']
+    @nav_controller   = ['users']
+    @nav_action   = ['new']
+  end
+
   # render new.rhtml
   def new
-    @user = User.new
+    # ページタイトルの設定
+    @title = 'ユーザ情報登録' + @title
+
+    # params[:phase]が指定以外の場合、『ユーザ立場選択』画面に戻す。
+    if /^(type|user|inputer)$/ !~ params[:phase]
+      redirect_to :action => 'new', :phase => 'type'
+      return
+    end
+
+    # SummaryUserオブジェクトを作成
+    @summary_user = SummaryUser.new(params[:summary_user])
+    # phaseの状態をSummaryUserオブジェクトに置いておく。
+    @summary_user.phase = params[:phase]
+    
+    # 登録フェーズが『ユーザ立場選択』以外の場合、SummaryUserオブジェクトの検証
+    # NGの場合、1つ前の画面に戻す。
+    if params[:phase] != 'type'
+      # 検証NGの場合
+      unless @summary_user.valid?
+        # ユーザ立場選択画面を表示
+        render :action => 'new' if params[:phase] == 'user'
+        render :action => 'new_user' if params[:phase] == 'inputer'
+      # 検証OKの場合
+      else
+        render :action => 'new_user' if params[:phase] == 'user'
+        render :action => 'new_inputer' if params[:phase] == 'inputer'
+      end
+      return
+    end
   end
- 
+
+  def confirm
+    # ページタイトルの設定
+    @title = 'ユーザ情報登録：確認' + @title
+
+    # SummaryUserオブジェクトを作成
+    @summary_user = SummaryUser.new(params[:summary_user])
+    if @summary_user.valid?
+    else
+      render :action => 'new_user'
+      return
+    end
+  end
+
   def create
     logout_keeping_session!
     @user = User.new(params[:user])

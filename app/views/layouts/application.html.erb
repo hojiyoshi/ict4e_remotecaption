@@ -1,31 +1,181 @@
-<html>
+<!DOCTYPE html>
+
+<html lang="ja">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <%= stylesheet_link_tag('common') %>
-    <%= javascript_include_tag 'jquery' %>
-    <%= javascript_include_tag 'jquery_blockUI' %>
-    <%= javascript_include_tag 'application' %>
-    <%= yield :html_header %>
-    <title>みんなのICT&nbsp;インターネット要約筆記依頼サービス - <%=@title%></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <title><%=@title%></title>
+    <%= stylesheet_link_tag('base.css', :media => 'screen,print') %>
+    <%= stylesheet_link_tag('contentsarea.css', :media => 'screen,print') %>
+    <%= stylesheet_link_tag('print.css', :media => 'print') %>
+    <%= stylesheet_link_tag('common.css') %>
+    <%= javascript_include_tag 'valueconvertor.js' %>
+    <%= javascript_include_tag 'prototype.js' %>
+    <%= javascript_include_tag 'application.js' %>
+    <%= javascript_include_tag 'ajaxzip2.js', :charset => 'UTF-8' if params[:controller] == 'requests' %>
+
+    <!--[if lte IE 8]>
+    <script type="text/javascript" src="/common/js/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
   </head>
-  <body>
-    <div id="page">
-      <div id="headerArea">
-        <div class="divLeft">
-          <%= link_to(image_tag('logo.gif', :alt =>'インターネット要約筆記トップページへリンク',:border=>0), login_path) %>
-        </div>
-      </div>
-      <div CLASS="clearDiv"></div>
-      <hr/>
-      <div id="contentArea">
+  <body id="use">
+    <p class="skiplink" id="skiplink"><a href="#honbun">本文へ移動</a></p>
+    <!--header[START]-->
+    <header>
+      <h1><%= link_to(image_tag('logo.gif', :size => '336x91', :alt =>'みんなのICTホーム'), '/') %></h1>
+      <nav role="navigation">
+        <ul class="functionNav">
+          <li><%= link_to 'サイトマップ', '/sitemap/'%></li>
+          <li><%= link_to 'お問い合わせ', 'https://www.ict4everyone.jp/contact/'%></li>
+        </ul>
+        <ul class="mainNav">
+          <li class="nav_know"><a href="/know/">活動紹介</a></li>
+          <li class="nav_use"><a href="/use/">アプリ･サービス</a></li>
+          <li class="nav_read"><a href="/read/">コラム</a></li>
+          <li class="nav_entry"><a href="/entry/">入会案内</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!--header[END]-->
+
+    <!--container[START]-->
+    <div id="container" class="clearFix">
+
+      <!--contentsArea[START]-->
+      <div id="contentsArea" role="main">
+        <nav>
+          <p class="topicPath">
+            <span>現在の位置： </span>
+            <a href='/'>ホーム</a> ＞ <a href='/use/'>アプリ・サービス</a> ＞
+            <% if APP_NAME == 'ict4e_braille' %>
+              <%= link_to '遠隔点字依頼サービス', :controller => 'tenji' %> ＞
+              <% unless @nav_title.blank? %>
+                <% for i in 0..@nav_title.size-1 %>
+                  <%= link_to(@nav_title[i], :controller => @nav_controller[i], :action => @nav_action[i], 'tenji_request[data_type]' => params[:tenji_request][:data_type], :login => true) %> ＞
+                <% end %>
+              <% end %>
+            <% elsif APP_NAME == 'ict4e_remotecaption' %>
+              <%= link_to '要約筆記支援サービス', :controller => 'home' %> ＞
+              <% unless @nav_title.blank? %>
+                <% for i in 0..@nav_title.size-1 %>
+                  <%= link_to(@nav_title[i], :controller => @nav_controller[i], :action => @nav_action[i] ) %> ＞
+                <% end %>
+              <% end %>
+            <% elsif APP_NAME == 'ict4e_common'%>
+              <% unless @nav_title.blank? %>
+                <% for i in 0..@nav_title.size-1 %>
+                  <%= link_to(@nav_title[i], :controller => @nav_controller[i], :action => @nav_action[i] ) %> ＞
+                <% end %>
+              <% end %>
+            <% end %>
+          </p>
+        </nav>
+
         <%= yield %>
+
+        <p class="pagetop"><a href="#skiplink">このページの先頭へ</a></p>
       </div>
-      <div CLASS="clearDiv"></div>
-      <hr/>
-      <div id="footerArea">
-        <div CLASS="divLeft"><%= link_to(image_tag('ict4_logo.gif', :alt =>'ICT4everyoneトップページへリンク',:border=>0),ICT4E_URL)%></div>
-        <div><%= link_to(image_tag( 'mail.gif', :alt =>'お問い合わせはこちら',:border=>0),'mailto:' + REMOTE_CAPTION_EMAIL,:popup => 'true') %></div>
-      </div>
+
+      <!--contentsArea[END]-->
     </div>
+    <!--container[END]-->
+
+    <!--aside[START]-->
+    <aside>
+      <nav>
+        <h2>「アプリ･サービス」メニュー</h2>
+        <ul>
+          <li><a href="/use/rainman/">RAINMAN(レインマン)</a></li>
+          <li><a href="/use/brailleml/">BrailleML（ブレイル　エムエル）</a></li>
+
+          <li>
+            <% if APP_NAME == 'ict4e_braille' %>
+            <a href="/use/tenji">遠隔点字印刷サービス</a>
+            <ul>
+              <li><a href="/use/tenji/service.php">サービス内容</a></li>
+              <li><a href="/use/tenji/manual.php">ご利用方法</a></li>
+              <li><a href="/use/tenji/data.php">印刷依頼データについて</a></li>
+              <li class="selected">
+                <!-- 点字印刷トップ以外は、リンクを置く。 -->
+                <%
+                  # if params[:controller] != 'tenji'
+                %>
+                  <%= # link_to '印刷依頼', :controller => 'tenji'
+                  %>
+                <% #else
+                %>
+                  <a>印刷依頼</a>
+                <% #end
+                %>
+              </li>
+            </ul>
+            <% else %>
+              <a href="/use/tenji/">遠隔点字印刷サービス</a>
+            <% end %>
+          </li>
+          <li>
+            <a href="/use/youyaku/">要約筆記依頼サービス</a>
+            <% if APP_NAME == 'ict4e_remotecaption' %>
+            <ul>
+              <li><a href="/use/youyaku/service.php">サービス内容</a></li>
+              <li><a href="/use/youyaku/manual.php">ご利用方法</a></li>
+              <li><a>サービスのご利用</a></li>
+            </ul>
+            <% end %>
+          </li>
+
+          <li>
+            <% if APP_NAME == 'ict4e_common' %>
+              <%= link_to 'ユーザー登録・変更', :controller => 'users' %>
+            <ul>
+              <!--
+                Helperでコントローラ名とアクション名が一致していれば、"selected"をli要素に付加
+                また、リンクを貼らない。
+              -->
+              <li<%= sub_menu_selected('new') %>><%= sub_menu_link('ユーザー登録', 'new') %></li>
+              <li<%= sub_menu_selected('edit') %>><%= sub_menu_link('メールアドレス・パスワード変更', 'edit_auth') %></li>
+              <li<%= sub_menu_selected('forget') %>><%= sub_menu_link('パスワードを忘れた方', 'forget') %></li>
+            </ul>
+            <% else %>
+              <%= link_to 'ユーザー登録・変更', ICT4E_ACCOUNTS_URL %>
+            <% end %>
+          </li>
+
+          <li><a href="/use/rule/">利用規約</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <!--aside[END]-->
+
+    <!--footer[START]-->
+    <footer role="contentinfo">
+      <div>
+        <ul>
+          <li><a href="/about/">サイトのご利用について</a></li>
+          <li><a href="/acc/">アクセシビリティポリシー</a></li>
+          <li><a href="/privacy/">プライバシーポリシー</a></li>
+        </ul>
+        <address><span>特定非営利活動法人　みんなのICT</span><br>
+          住所：〒790-0062　愛媛県松山南江戸1町目10-21　ペリ館S棟103<br>
+          電話/ファックス：089-989-2208
+        </address>
+        <p class="copy">Copyright（C) 2008 ICT for everyone, All right reserved.</p>
+      </div>
+    </footer>
+    <!--footer[END]-->
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-19615620-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
   </body>
 </html>

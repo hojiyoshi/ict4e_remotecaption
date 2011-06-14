@@ -2,10 +2,10 @@
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
-
+APP_NAME='ict4e_remotecaption'
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
-require File.join(File.dirname(__FILE__), 'constant')
+#require File.join(File.dirname(__FILE__), 'constant')
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
@@ -40,4 +40,20 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
+  config.i18n.default_locale = 'ja'
+
+  # ActionMailerの設定
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :enable_starttls_auto => true,
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :domain => "www.ict4everyone.jp",
+    :authentication => :plain,
+    :user_name => 'ict4everyone.summary',
+    :password => 'ictehimeeveryone1'
+  }
+  REQUEST_MAILADDRESS = 'hojiyoshi@gmail.com'
+  ICT4E_ACCOUNTS_URL = 'http://localhost:3001/'
 end

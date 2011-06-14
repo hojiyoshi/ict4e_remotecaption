@@ -1,55 +1,28 @@
-<div id="introPage" class="tableArea">
-  <%= render :partial => 'layouts/top_explain' %>
-</div>
-<div id="loginPage">
-  <div class="tableArea">
-    <div class="captionArea">
-      <b>ログインはこちら</b>
-    </div>
-    <div class="marginArea">
-      インターネット要約筆記依頼サービスを利用するには、ログインが必要です。
-    </div>
-    <div class="spacer_mini"></div>
-    <div><%=flash[:notices]%></div>
-    <div class="spacer_mini"></div>
-    <div>
-      <div class="formCaption"><%= label 'users','email', 'メールアドレス：'%></div>
-      <div><%= text_field 'users','email', :size=> 25, :maxlength=>100, :value=>@user_email, :class=>'login_form' %></div>
-    </div>
-    <div class="spacer_mini"></div>
-    <div>
-      <div class="formCaption"><%= label 'users','password', 'パスワード：'%></div>
-      <div><%= password_field 'users','password', :size=> 25, :maxlength=>100, :class=>'login_form' %></div>
-    </div>
-    <div class="spacer_mini"></div>
-    <div class="marginArea"><%= check_box 'users','remember_me' %><%= label 'users','remember_me', '自動ログインを行う。'%></div>
-    <div class="spacer_mini"></div>
-    <div class="marginArea"><%= submit_tag 'ログイン' %></div>
-    <div class="spacer_mini"></div>
-    <div class="marginArea">
-      <%= link_to(image_tag('forgot_pass.gif', :alt =>'パスワードを忘れた場合',:border=>0),ICT4E_ACCOUNTS_URL+'/reminds/remotecaption') %>
-    </div>
-  </div>
-  <div class="spacer"></div>
-  <div class="tableArea">
-    <div class="captionArea">
-      <b>ユーザ登録はこちら</b>
-    </div>
-    <div class="marginArea">
-      インターネット要約筆記サービスのユーザ登録を行いたい方は「ユーザ登録」をクリックしてください。
-    </div>
-    <div class="spacer_mini"></div>
-    <div class="marginArea">
-      <%= link_to(image_tag('user_regist.gif', :alt =>'ユーザ登録はこちら',:border=>0),ICT4E_ACCOUNTS_URL+'/signup/remotecaption/term') %>
-    </div>
-    <div class="marginArea">
-      本サービスに参加したい要約筆記サークルの方は、「サークル登録」をクリックしてください。
-    </div>
-    <div class="spacer_mini"></div>
-    <div class="marginArea">
-      <%= link_to(image_tag('circle_regist.gif', :alt =>'ユーザ登録はこちら',:border=>0),ICT4E_ACCOUNTS_URL+'/signup/remotecaption/term') %>
-    </div>
-  </div>
-  
-</div>
-<div class="spacer"></div>
+<h1 id="honbun">要約筆記依頼サービス</h1>
+<p>
+  登録済みユーザー情報のメールアドレスとパスワードを入力し、「ログイン」ボタンをおしてください。
+</p>
+<%= flash[:error] %>
+<p>ユーザー登録されていない方は、事前に「<%= link_to 'ユーザ新規登録', ICT4E_ACCOUNTS_URL + 'signup/remotecaption/account' %>」が必要です。</p>
+<% form_tag :controller => 'sessions', :action => 'create' do -%>
+  <% fields_for :users do |f| %>
+<h2>登録済みユーザー情報</h2>
+<table class="col">
+  <tr>
+    <th><label for="email">Eメール<span class="tCaution">(必須)</span></label></th>
+    <td>
+      <%= f.text_field 'email', :id=> 'email',:size=> '30', :style => 'ime-mode: disabled;',
+        :type => 'email', :class=>'textB ascii', :required => 'required', :value=>@user_email %>
+    </td>
+  </tr>
+  <tr>
+  <th><label for="password">パスワード<span class="tCaution">(必須)</span></label></th>
+  <td>
+    <%= f.password_field 'password', :id => 'password', :size => "10", :style => "ime-mode: disabled;",
+      :class => "textC ascii", :required => "required" %>
+    <%= link_to 'パスワードを忘れた方', ICT4E_ACCOUNTS_URL + 'users/forget' %></td>
+  </tr>
+</table>
+<p><%= submit_tag 'ログイン', :id => 'login', :name => 'login' %></p>
+<% end %>
+<% end %>

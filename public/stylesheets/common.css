@@ -1,69 +1,22 @@
-body{
-    font-size: 12px;
-    text-align: center;
-    letter-spacing: 0.05em;
+/* セレクトボックスのスタイル設定 */
+select{
+    width:15em;
 }
-div {
-    display: block;
+/*
+#errorExplanation {
+    border: 3px solid #CCCCCC;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #FFFFCC;
+  }
+#errorExplanation ul{
+    color:#CC0000;font-weight: bold;font-size: small;
 }
-#page {
-    margin: 0px auto;
-    position: relative;
-    text-align: left;
-    width: 955px;
+
+#errorExplanation p{
+    color:#CC0000;font-weight: bold;font-size: small;
 }
-#headerArea{
-    width : 945px;
-}
-#conetntArea{
-    width : 945px;
-}
-#footerArea{
-    width : 945px;
-}
-/* DIVの左回り込み設定 */
-.divLeft{
-    float:left;
-}
-/* 回り込み解除スタイル設定 */
-.clearDiv{
-    clear:both;
-}
-/* スペース行（小）のスタイル設定 */
-.spacer_mini{
-    padding-top:5px;
-}
-/* スペース行（大）のスタイル設定 */
-.spacer{
-    height:15px;
-}
-.captionArea{
-    padding: 5px 5px;
-    background-image: url(../../images/caption_back.gif);
-    border-bottom: 2px solid #999;
-}
-.marginArea{
-    padding:5px;
-}
-.textCenter{
-    text-align:center;
-}
-#introPage{
-    width:580px;
-    float:left;
-}
-#loginPage{
-    vertical-align:top;
-    width:350px;
-    margin-left:600px;
-    
-}
-.tableArea{
-    border: 2px solid #999;
-}
-.formCaption{
-    float:left;
-    width:100px;
-    margin-top: 5px;
-    text-align:right;
+*/
+.fieldWithErrors{
+  display: inline;
 }

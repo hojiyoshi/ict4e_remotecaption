@@ -1,17 +1,53 @@
-<h1>Sign up as a new user</h1>
-<% @user.password = @user.password_confirmation = nil %>
+<h1 id="honbun">ユーザー情報登録<%= '：エラー' unless error_messages_for('summary_user').blank? %></h1>
 
-<%= error_messages_for :user %>
-<% form_for :user, :url => users_path do |f| -%>
+<table class="col">
+  <tr>
+    <td><b>STEP - 1<br />
+      利用立場の選択</b>
+    </td>
+    <td>STEP - 2<br />
+      ユーザ情報の登録
+    </td>
+    <td>STEP - 3<br />
+      ユーザ情報の確認
+    </td>
+    <td>STEP - 4<br />
+      ユーザ登録の完了
+    </td>
+  </tr>
+</table>
 
-<p><%= f.label :email %><br/>
-<%= f.text_field :email %></p>
+<p>
+  <% if error_messages_for('summary_user').blank? %>
+    はじめに「要約筆記依頼サービス」のユーザ情報を登録します。
+  <% else %>
+    エラー内容を確認し、入力情報を修正後、「次の画面に進む」ボタンを押してください。
+  <% end %>
+</p>
 
-<p><%= f.label :password %><br/>
-<%= f.password_field :password %></p>
+<%= template_error_messages_for 'summary_user' %>
 
-<p><%= f.label :password_confirmation, 'Confirm Password' %><br/>
-<%= f.password_field :password_confirmation %></p>
-
-<p><%= submit_tag 'Sign up' %></p>
+<% form_tag :controller => 'users', :action => 'new', :phase => 'user' do -%>
+<% fields_for :summary_user do |f| %>
+<div class="boxB">
+  <p class="mNon">
+    要約筆記依頼サービスでの利用する立場に<label style="color: red;">1つ以上</label>チェックを入れてください。
+  </p>
+  <p class="mNon">
+    <label for="user_flag" class="fBold">
+      <%= f.check_box :user_flag %>
+        &nbsp;<%= f.label 'user_flag', '要約筆記の利用者（情報保障を利用したい方）として登録する。'%>
+    </label>
+  </p>
+  <p class="mNon">
+    <label for="inputer_flag" class="fBold">
+      <%= f.check_box :inputer_flag %>
+        &nbsp;<%= f.label 'inputer_flag', '要約筆記の入力者（支援したい方）として登録する。'%>
+    </label>
+  </p>
+</div>
+<% end %>
+<p><%= link_to '利用規約', '/use/rule/' %></p>
+<p><%= submit_tag '次の画面に進む', :name => 'next' %></p>
 <% end -%>
+
