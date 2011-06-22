@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110607153705) do
+ActiveRecord::Schema.define(:version => 20110619151120) do
 
   create_table "ict4e_master_data", :force => true do |t|
     t.string  "application_name", :limit => 64, :null => false
@@ -19,14 +19,52 @@ ActiveRecord::Schema.define(:version => 20110607153705) do
 
   add_index "ict4e_master_data", ["application_name"], :name => "application_name"
 
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "summary_circles", :force => true do |t|
+    t.string   "circle_name",                     :null => false
+    t.string   "delegate_name"
+    t.string   "circle_url"
+    t.datetime "establish_date"
+    t.string   "charge_name"
+    t.string   "charge_email",     :limit => 100
+    t.string   "charge_phone",     :limit => 64
+    t.string   "action_area"
+    t.text     "circle_introduce"
+    t.boolean  "handwriting_flag"
+    t.boolean  "pcinputing_flag"
+    t.boolean  "netinputing_flag"
+    t.boolean  "active_flag",                     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "summary_inputer_attributes", :force => true do |t|
+    t.string  "type"
+    t.integer "like_id"
+    t.integer "dislike_id"
+    t.integer "joinday_id"
+    t.integer "jointime_id"
+    t.integer "summary_circle_id"
+    t.integer "summary_user_id"
+  end
+
   create_table "summary_users", :force => true do |t|
-    t.integer "user_id",                                          :null => false
-    t.integer "application_type",                                 :null => false
-    t.integer "phone_contact",                                    :null => false
+    t.integer "user_id",                                           :null => false
+    t.integer "application_type",                                  :null => false
+    t.integer "phone_contact",                                     :null => false
     t.string  "skype_id"
-    t.integer "inputer_flag",                      :default => 0, :null => false
-    t.integer "cordinater_flag",                   :default => 0, :null => false
-    t.integer "user_flag",                         :default => 0, :null => false
+    t.integer "inputer_flag",                       :default => 0, :null => false
+    t.integer "cordinater_flag",                    :default => 0, :null => false
+    t.integer "user_flag",                          :default => 0, :null => false
     t.integer "network_env"
     t.text    "network_env_other"
     t.integer "input_career"
@@ -38,13 +76,13 @@ ActiveRecord::Schema.define(:version => 20110607153705) do
     t.text    "like_field_other"
     t.text    "dislike_field_other"
     t.text    "qualification_data"
-    t.integer "inputer_status",                    :default => 0
+    t.integer "inputer_status",                     :default => 0
     t.string  "name_kanji",          :limit => 64
     t.string  "name_kana",           :limit => 64
-    t.string  "phone_number",        :limit => 8
-    t.string  "fax_number",          :limit => 8
-    t.string  "cellphone_number",    :limit => 8
-    t.string  "cellphone_email"
+    t.string  "phone_number",        :limit => 64
+    t.string  "fax_number",          :limit => 64
+    t.string  "cellphone_number",    :limit => 64
+    t.string  "cellphone_email",     :limit => 128
   end
 
   add_index "summary_users", ["user_id"], :name => "summary_users_user_id_key", :unique => true

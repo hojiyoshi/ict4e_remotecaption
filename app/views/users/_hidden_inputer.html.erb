@@ -1,0 +1,48 @@
+<% fields_for :summary_user do |f| %>
+  <%= f.hidden_field(:network_env, :value=>@summary_user.network_env) %>
+  <%= f.hidden_field(:network_env_other	 , :value=>@summary_user.network_env_other) %>
+  <%= f.hidden_field(:input_career	 , :value=>@summary_user.input_career) %>
+  <%= f.hidden_field(:input_career_other , :value=>@summary_user.input_career_other) %>
+  <%= f.hidden_field(:input_speed	 , :value=>@summary_user.input_speed) %>
+  <%= f.hidden_field(:input_speed_other	 , :value=>@summary_user.input_speed_other) %>
+  <%= f.hidden_field(:join_day_other	 , :value=>@summary_user.join_day_other) %>
+  <%= f.hidden_field(:join_time_other	 , :value=>@summary_user.join_time_other) %>
+  <%= f.hidden_field(:like_field_other	 , :value=>@summary_user.like_field_other) %>
+  <%= f.hidden_field(:dislike_field_other, :value=>@summary_user.dislike_field_other) %>
+  <%= f.hidden_field(:qualification_data , :value=>@summary_user.qualification_data) %>
+<% end -%>
+
+<% fields_for :summary_user_circle do |r| %>
+  <% get_check_params(params[:summary_user_circle]['circle_list']).each do |m| %>
+    <%= r.hidden_field("circle_list",:name=>'summary_user_circle[circle_list]['+m.to_s+']',
+      :value=>params[:summary_user_circle]['circle_list'][m]) %>
+  <% end %>
+<% end %>
+
+<% fields_for :summary_inpuer_joinday do |r| %>
+  <% get_check_params(params[:summary_inputer_joinday]['joinday_list']).each do |m| %>
+    <%= r.hidden_field("joinday_list",:name=>'summary_inputer_joinday[joinday_list]['+m.to_s+']',
+      :value=>params[:summary_inputer_joinday]['joinday_list'][m]) %>
+  <% end %>
+<% end %>
+
+<% fields_for :summary_inpuer_jointime do |r| %>
+  <% get_check_params(params[:summary_inputer_jointime]['jointime_list']).each do |m| %>
+    <%= r.hidden_field("jointime_list",:name=>'summary_inputer_jointime[jointime_list]['+m.to_s+']',
+      :value=>params[:summary_inputer_jointime]['jointime_list'][m]) %>
+  <% end %>
+<% end %>
+
+<% fields_for :summary_inpuer_like do |r| %>
+  <% get_check_params(params[:summary_inputer_like]['like_field']).each do |m| %>
+    <%= r.hidden_field("like_field",:name=>'summary_inputer_like[like_field]['+m.to_s+']',
+      :value=>params[:summary_inputer_like]['like_field'][m]) %>
+  <% end %>
+<% end %>
+
+<% fields_for :summary_inpuer_dislike do |r| %>
+  <% get_check_params(params[:summary_inputer_dislike]['dislike_field']).each do |m| %>
+    <%= r.hidden_field("dislike_field",:name=>'summary_inputer_dislike[dislike_field]['+m.to_s+']',
+      :value=>params[:summary_inputer_dislike]['dislike_field'][m]) %>
+  <% end %>
+<% end %>

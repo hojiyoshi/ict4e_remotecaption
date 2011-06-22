@@ -1,4 +1,4 @@
-<h1 id="honbun">ユーザ情報登録<%= '：エラー' unless error_messages_for('summary_user').blank? %></h1>
+<h1 id="honbun">ユーザ登録<%= '：エラー' unless error_messages_for('summary_user').blank? %></h1>
 
 <table class="col">
   <tr>
@@ -25,10 +25,12 @@
 <% end %>
 </p>
 
-<% form_tag :controller => 'users', :action => 'confirm' do -%>
+<% form_tag :controller => 'users', :action => 'confirm', :phase => 'inputer' do -%>
 
 <%= render :partial => 'hidden_type' %>
 <%= render :partial => 'hidden_user' %>
+
+<%= template_error_messages_for 'summary_user' %>
 
 <% fields_for :summary_user do |f| %>
 <table class="col">
@@ -36,6 +38,9 @@
     <th><label for="summary_user_circle">参加サークル<span class="tCaution">(必須)</span></label></th>
     <td>
       <span class="fSmall">参加サークルを1つ以上チェックを入れてください。</span><br />
+      <%= render :partial => 'layouts/check_boxes',
+            :locals => {:target => :summary_user_circle, :label=> :circle_name,:name => 'circle_list',
+            :values => SummaryCircle.find(:all,:order => 'id ASC'), :cols => 7} %>
     </td>
   </tr>
 
@@ -43,6 +48,9 @@
     <th rowspan="2"><label for="input_career">入力者暦<span class="tCaution">(必須)</span></label></th>
     <td>
       <span class="fSmall">入力者としての経験年月を選択してください。</span><br />
+      <%= f.collection_select(:input_career,
+        Ict4eMasterDatum.find(:all,:conditions => ['application_name = ?','input_career'],:order => 'sort_order ASC'),
+        :id,:item_data,:prompt => '選択してください。') %>
     </td>
   </tr>
   <tr>
@@ -56,6 +64,9 @@
     <th rowspan="2"><label for="input_speed">入力速度<span class="tCaution">(必須)</span></label></th>
     <td>
       <span class="fSmall">1分間に入力（手書き）可能な漢字かな混じり文字数を選択してください。</span><br />
+      <%= f.collection_select(:input_speed,
+        Ict4eMasterDatum.find(:all,:conditions => ['application_name = ?','input_speed'],:order => 'sort_order ASC'),
+        :id,:item_data,:prompt => '選択してください。') %>
     </td>
   </tr>
   <tr>
@@ -69,6 +80,9 @@
     <th rowspan="2"><label for="summary_inputer_joinday">活動可能曜日<span class="tCaution">(必須)</span></label></th>
     <td>
       <span class="fSmall">入力者として活動可能な曜日を1つ以上チェックを入れてください。</span><br />
+      <%= render :partial => 'layouts/check_boxes',
+            :locals => {:target => :summary_inputer_joinday, :label=> :item_data,:name => 'joinday_list',
+            :values => Ict4eMasterDatum.find(:all,:conditions => ['application_name = ?','join_day'],:order => 'sort_order ASC'), :cols => 7} %>
     </td>
   </tr>
   <tr>
@@ -82,6 +96,9 @@
     <th rowspan="2"><label for="summary_inputer_jointime">活動可能時間帯<span class="tCaution">(必須)</span></label></th>
     <td>
       <span class="fSmall">入力者として活動可能な時間帯を1つ以上チェックを入れてください。</span><br />
+      <%= render :partial => 'layouts/check_boxes',
+            :locals => {:target => :summary_inputer_jointime, :label=> :item_data,:name => 'jointime_list',
+            :values => Ict4eMasterDatum.find(:all,:conditions => ['application_name = ?','join_time'],:order => 'sort_order ASC'), :cols => 7} %>
     </td>
   </tr>
   <tr>
@@ -95,6 +112,9 @@
     <th rowspan="2"><label for="summary_inputer_like">得意分野<span class="tCaution">(必須)</span></label></th>
     <td>
       <span class="fSmall">要約筆記に関して得意な分野を1つ以上チェックを入れてください。</span><br />
+      <%= render :partial => 'layouts/check_boxes',
+            :locals => {:target => :summary_inputer_like, :label=> :item_data,:name => 'like_field',
+            :values => Ict4eMasterDatum.find(:all,:conditions => ['application_name = ?','adapt_field'],:order => 'sort_order ASC'), :cols => 6} %>
     </td>
   </tr>
   <tr>
@@ -108,6 +128,9 @@
     <th rowspan="2"><label for="summary_inputer_dislike">苦手分野<span class="tCaution">(必須)</span></label></th>
     <td>
       <span class="fSmall">要約筆記に関して苦手な分野を1つ以上チェックを入れてください。</span><br />
+      <%= render :partial => 'layouts/check_boxes',
+            :locals => {:target => :summary_inputer_dislike, :label=> :item_data,:name => 'dislike_field',
+            :values => Ict4eMasterDatum.find(:all,:conditions => ['application_name = ?','adapt_field'],:order => 'sort_order ASC'), :cols => 6} %>
     </td>
   </tr>
   <tr>
@@ -121,6 +144,9 @@
     <th rowspan="2"><label for="network_env">インターネット環境</label></th>
     <td>
       <span class="fSmall">インターネット要約筆記を利用する場合、ご使用の環境を選択してください。</span><br />
+      <%= f.collection_select(:network_env,
+        Ict4eMasterDatum.find(:all,:conditions => ['application_name = ?','network_env'],:order => 'sort_order ASC'),
+        :id,:item_data,:prompt => '選択してください。') %>
     </td>
   </tr>
   <tr>
@@ -131,7 +157,7 @@
   </tr>
 
   <tr>
-    <th rowspan="2"><label for="summary_inputer_dislike">保有資格</label></th>
+    <th><label for="qualification_data">保有資格</label></th>
     <td>
       <span class="fSmall">保有する資格に関してご自由に記載ください。</span><br />
       <%= f.text_area :qualification_data, :rows =>4, :cols =>60 %>
@@ -142,15 +168,14 @@
 <% end %>
 
 <p>
-  <div style="float: left">
-    <%= submit_tag '確認画面へ', :id => 'next', :name => 'next' %>&nbsp;
-    <% end -%>
-    <% form_tag({:controller => 'users', :action => 'new', :phase => 'user'}) do -%>
-  </div>
-  <div>
-    <%= render :partial => 'hidden_type' %>
-    <%= render :partial => 'hidden_user' %>
-    <%= submit_tag '前画面に戻る', :id => 'back', :name => 'back' %>
-    <% end -%>
-  </div>
+  <%= submit_tag '確認画面へ', :id => 'next', :name => 'next' %>
 </p>
+<% end -%>
+
+<% form_tag({:controller => 'users', :action => 'new', :phase => 'user'}) do -%>
+<p>
+  <%= render :partial => 'hidden_type' %>
+  <%= render :partial => 'hidden_user' %>
+  <%= submit_tag '前画面に戻る', :id => 'back', :name => 'back' %>
+</p>
+<% end -%>

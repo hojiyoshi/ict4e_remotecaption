@@ -1,9 +1,23 @@
-<h1 id="honbun">ユーザ情報登録：確認</h1>
+<h1 id="honbun">ユーザ登録：確認</h1>
 <p>以下の内容でよろしければ、「この内容でユーザ情報を登録する」ボタンを押してください。</p>
-<% form_tag :controller => 'users', :action => 'create' do -%>
+<% form_tag :controller => 'users', :action => 'create', :phase => @summary_user.inputer_flag == 1? 'inputer':'' do -%>
 
 <%= render :partial => 'hidden_type' %>
 <%= render :partial => 'hidden_user' %>
+<%= render :partial => 'hidden_inputer' %>
+
+<p>
+<ul>
+<% if @summary_user.user_flag == 1 %>
+<li>要約筆記の利用者（情報保障を利用したい方）として登録する。</li>
+<% end %>
+
+<% if @summary_user.inputer_flag == 1 %>
+<li>要約筆記の入力者（支援したい方）として登録する。</li>
+<% end %>
+</ul>
+</p>
+
 <table class="col">
   <tr>
     <th>Eメール</th>
@@ -12,19 +26,19 @@
   <tr>
     <th><label for="name_kanji">お名前（漢字）</label></th>
     <td>
-      <%= h @user_common.name_kanji %>
+      <%= h @summary_user.name_kanji %>
     </td>
   </tr>
   <tr>
     <th><label for="name_kana">お名前（ふりがな）</label></th>
     <td>
-      <%= h @user_common.name_kana %>
+      <%= h @summary_user.name_kana %>
     </td>
   </tr>
   <tr>
     <th><label for="phone_number">電話番号</label></th>
     <td>
-      <%= h @user_common.phone_number %>
+      <%= h @summary_user.phone_number %>
     </td>
   </tr>
 
@@ -43,19 +57,19 @@
   <tr>
     <th><label for="fax_number">FAX番号</label></th>
     <td>
-      <%= h @user_common.fax_number %>
+      <%= h @summary_user.fax_number %>
     </td>
   </tr>
   <tr>
     <th><label for="cellphone_number">携帯電話番号</label></th>
     <td>
-      <%= h @user_common.cellphone_number %>
+      <%= h @summary_user.cellphone_number %>
     </td>
   </tr>
   <tr>
     <th><label for="cellphone_email">携帯電話メールアドレス</label></th>
     <td>
-      <%= h @user_common.cellphone_email %>
+      <%= h @summary_user.cellphone_email %>
     </td>
   </tr>
   <tr>
@@ -66,16 +80,119 @@
   </tr>
 </table>
 
+<% if @summary_user.c_phase == 'inputer' %>
+<table class="col">
+  <tr>
+    <th><label for="summary_user_circle">参加サークル</label></th>
+    <td>
+      <%= render_multiple_value(@summary_user.circle_list,'circle_name') %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="input_career">入力者暦</label></th>
+    <td>
+      <%= Ict4eMasterDatum.find(@summary_user.input_career).item_data %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= hbr(@summary_user.input_career_other) %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="input_speed">入力速度</label></th>
+    <td>
+      <%= Ict4eMasterDatum.find(@summary_user.input_speed).item_data %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= hbr(@summary_user.input_speed_other) %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="summary_inputer_joinday">活動可能曜日</label></th>
+    <td>
+      <%= render_multiple_value(@summary_user.joinday_list,'item_data') %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= hbr(@summary_user.join_day_other) %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="summary_inputer_jointime">活動可能時間帯</label></th>
+    <td>
+      <%= render_multiple_value(@summary_user.jointime_list,'item_data') %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= hbr(@summary_user.join_time_other) %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="summary_inputer_like">得意分野</label></th>
+    <td>
+      <%= render_multiple_value(@summary_user.like_field,'item_data') %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= hbr(@summary_user.like_field_other) %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="summary_inputer_dislike">苦手分野</label></th>
+    <td>
+      <%= render_multiple_value(@summary_user.dislike_field,'item_data') %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= hbr(@summary_user.dislike_field_other) %>
+    </td>
+  </tr>
+
+  <tr>
+    <th rowspan="2"><label for="network_env">インターネット環境</label></th>
+    <td>
+      <%= Ict4eMasterDatum.find(@summary_user.network_env).item_data %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <%= hbr(@summary_user.network_env_other) %>
+    </td>
+  </tr>
+
+  <tr>
+    <th><label for="summary_inputer_dislike">保有資格</label></th>
+    <td>
+      <%= hbr(@summary_user.qualification_data) %>
+    </td>
+  </tr>
+
+</table>
+<% end %>
+
 <p>
-  <div style="float: left">
-    <%= submit_tag 'この内容でユーザ情報を登録する', :id => 'next', :name => 'next' %>&nbsp;
-    <% end -%>
-    <% form_tag({:controller => 'users', :action => 'new', :phase => @summary_user.inputer_flag == 1? 'inputer':'user'}) do -%>
-  </div>
-  <div>
-    <%= render :partial => 'hidden_type' %>
-    <%= render :partial => 'hidden_user' %>
-    <%= submit_tag '前画面に戻る', :id => 'back', :name => 'back' %>
-    <% end -%>
-  </div>  
+  <%= submit_tag 'この内容でユーザ情報を登録する', :id => 'next', :name => 'next' %>
 </p>
+<% end -%>
+
+<% form_tag({:controller => 'users', :action => 'new', :phase => @summary_user.inputer_flag == 1? 'inputer':'user'}) do -%>
+<p>
+  <%= render :partial => 'hidden_type' %>
+  <%= render :partial => 'hidden_user' %>
+  <%= render :partial => 'hidden_inputer' %>
+  <%= submit_tag '前画面に戻る', :id => 'back', :name => 'back' %>
+</p>
+<% end -%>

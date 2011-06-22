@@ -1,6 +1,14 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
+<script type="text/JavaScript">
+<!--
+function autoLink()
+{
+location.href="<%= ICT4E_REMOTECAPTION_URL %>";
+}
+setTimeout("autoLink()",10000);
+// -->
+</script>
 
-<%= "create.html" %>
+<h1 id="honbun">ユーザー登録:完了</h1>
+<p class="boxB">要約筆記依頼システムのユーザー登録が完了しました。</p>
+<p>登録したアドレスに確認メールを送信しました。</p>
+<p>10秒後に要約筆記依頼サービスとのホーム画面に移動します。移動しない場合は<%= link_to 'こちら', :controller => 'home'  %>をクリックしてください。</p>

@@ -1,4 +1,4 @@
-<h1 id="honbun">ユーザ情報登録<%= '：エラー' unless error_messages_for('summary_user').blank? %></h1>
+<h1 id="honbun">ユーザ登録<%= '：エラー' unless error_messages_for('summary_user').blank? %></h1>
 
 <table class="col">
   <tr>
@@ -24,7 +24,7 @@
   エラー内容を確認し、入力情報を修正後、「次の画面に進む」ボタンを押してください。
 <% end %>
 </p>
-
+<!-- ユーザ種別のチェック内容でFORM先を変更する -->
 <% form_tag get_user_form(@summary_user.inputer_flag) do -%>
 <%= render :partial => 'hidden_type' %>
 
@@ -93,28 +93,27 @@
     <th><label for="cellphone_email">携帯電話メールアドレス</label></th>
     <td>
       <span class="fSmall">入力例：taro@youyaku.com<br />（依頼に関する通知を携帯電話のメールアドレスに送信したい場合に入力してください。）</span><br />
-      <%= f.text_field :cellphone_email, :id => "cellphone_email", :style => "ime-mode: disabled;", :size => "15", :maxlength => "15", :class => "textB ascii" %>
+      <%= f.text_field :cellphone_email, :id => "cellphone_email", :style => "ime-mode: disabled;", :size => "15", :class => "textB ascii" %>
     </td>
   </tr>
   <tr>
     <th><label for="skype_id">スカイプID</label></th>
     <td>
       <span class="fSmall">入力例：taro_skype（インターネット要約筆記を利用する場合に入力してください。）</span><br />
-      <%= f.text_field :skype_id, :id => "skype_id", :style => "ime-mode: disabled;", :size => "15", :maxlength => "15", :class => "textB ascii" %>
+      <%= f.text_field :skype_id, :id => "skype_id", :style => "ime-mode: disabled;", :size => "15",  :class => "textB ascii" %>
     </td>
   </tr>
 </table>
   <% end %>
 
 <p>
-  <div style="float: left">
-    <%= submit_tag @summary_user.inputer_flag == 1 ? '次の画面へ':'確認画面へ', :id => 'next', :name => 'next' %>&nbsp;
-    <% end -%>
-    <% form_tag({:controller => 'users', :action => 'new', :phase => 'type'}) do -%>
-  </div>
-  <div>
-    <%= render :partial => 'hidden_type' %>
-    <%= submit_tag '前画面に戻る', :id => 'back', :name => 'back' %>
-    <% end -%>
-  </div>
+  <%= submit_tag @summary_user.inputer_flag == 1 ? '次の画面へ':'確認画面へ', :id => 'next', :name => 'next' %>
 </p>
+<% end -%>
+
+<% form_tag({:controller => 'users', :action => 'new', :phase => 'type'}) do -%>
+<p>
+  <%= render :partial => 'hidden_type' %>
+  <%= submit_tag '前画面に戻る', :id => 'back', :name => 'back' %>
+</p>
+<% end -%>

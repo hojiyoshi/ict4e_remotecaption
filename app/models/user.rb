@@ -2,8 +2,8 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   # 従属関係の定義
-  has_one :user_common
-  has_one :summary_user
+  # 親オブジェクト削除時に子オブジェクトも削除する。
+  has_one :summary_user, :dependent => :destroy
 
   include Authentication
   include Authentication::ByPassword
@@ -51,8 +51,6 @@ class User < ActiveRecord::Base
   # This will also let us return a human error message.
   #
   def self.authenticate(email, password)
-p email
-p password
     return nil if email.blank? || password.blank?
     # u = find :first, :conditions => ['email = ? and activated_at IS NOT NULL', email] # need to get the salt
     # u && u.authenticated?(password) ? u : nil

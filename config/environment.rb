@@ -54,6 +54,21 @@ Rails::Initializer.run do |config|
     :user_name => 'ict4everyone.summary',
     :password => 'ictehimeeveryone1'
   }
-  REQUEST_MAILADDRESS = 'hojiyoshi@gmail.com'
-  ICT4E_ACCOUNTS_URL = 'http://localhost:3001/'
+  # 定数定義
+  # 環境によって、変更が必要なもの
+  BCC_MAILADDRESS = 'hojiyoshi@gmail.com'           # メール送信時のBCCアドレス
+  ICT4E_REMOTECAPTION_URL = 'http://localhost:3000/'# 要約筆記依頼システムのURL
+  ICT4E_ACCOUNTS_URL = 'http://localhost:3001/'     # ユーザ登録機能のURL
+
+  # 固定値となるもの
+  # メールヘッダの定数
+  CHARSET             = 'iso-2022-jp'
+  CONTENT_TYPE        = 'text/plain'
+  FROM_MAILADDRESS    = 'ict4e-info@ict4everyone.jp'
+  MIME_VERSION        = '1.0'
+  SUBJECT_HEADER      = '【みんなのICT】'
+
+  # メール本文の定数
+  ICT4E_URL = 'http://www.ict4everyone.jp'
+  OFFICE_MAILADDREESS = 'ict4e-info@ict4everyone.jp'  
 end

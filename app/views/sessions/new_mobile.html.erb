@@ -1,0 +1,21 @@
+<!--
+<form action="/session" method="post" btn>
+-->
+<% form_tag :controller => 'sessions', :action => 'create' , :guid=>'ON' do -%>
+<% fields_for :users do |f| %>
+  メールアドレス： <br/>
+  <%= f.text_field 'email', :id=> 'email',:size=> '30', :style => 'ime-mode: disabled;',
+          :type => 'email', :class=>'textB ascii', :required => 'required', :value=>@login %>
+  <br/> <br/>
+  パスワード： <br/>
+  <%= f.password_field 'password', :id => 'password', :size => "30", :style => "ime-mode: disabled;",
+        :class => "textC ascii", :required => "required" %>
+
+<% end %>
+  <p><%= submit_tag 'ログイン', :id => 'login', :name => 'login' %></p>
+<!--
+</form>
+-->
+<% end %>
+
+<%= flash[:error] %>

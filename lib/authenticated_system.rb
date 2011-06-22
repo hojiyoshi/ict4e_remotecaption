@@ -9,7 +9,11 @@ module AuthenticatedSystem
     # Accesses the current user from the session.
     # Future calls avoid the database because nil is not equal to false.
     def current_user
-      @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie) unless @current_user == false
+      if request.mobile?
+        @current_user ||= (login_from_uid || login_from_session) unless @current_user == false
+      else
+        @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie) unless @current_user == false
+      end
     end
 
     # Store the given user id in the session.
@@ -65,7 +69,8 @@ module AuthenticatedSystem
       respond_to do |format|
         format.html do
           store_location
-          redirect_to new_session_path
+         # redirect_to new_session_path, {:login => 'false'}
+          redirect_to :controller => 'session', :action => 'new', :login => 'false'
         end
         # format.any doesn't work in rails version < http://dev.rubyonrails.org/changeset/8987
         # Add any other API formats here.  (Some browsers, notably IE6, send Accept: */* and trigger
@@ -102,6 +107,10 @@ module AuthenticatedSystem
     #
     # Login
     #
+    # uidの一致に基づく認証
+    def login_from_uid
+      self.current_user = User.find_by_uid(request.mobile.ident_subscriber) if request.mobile.ident_subscriber
+    end
 
     # Called from #current_user.  First attempt to login by the user id stored in the session.
     def login_from_session

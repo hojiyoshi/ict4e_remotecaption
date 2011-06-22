@@ -2,10 +2,10 @@ class AddColumnSummaryUsers < ActiveRecord::Migration
   def self.up
     add_column :summary_users, :name_kanji,       :string,  :limit => 64
     add_column :summary_users, :name_kana,        :string,  :limit => 64
-    add_column :summary_users, :phone_number,     :string,  :limit => 8
-    add_column :summary_users, :fax_number,       :string,  :limit => 8
-    add_column :summary_users, :cellphone_number, :string,  :limit => 8
-    add_column :summary_users, :cellphone_email,  :string
+    add_column :summary_users, :phone_number,     :string,  :limit => 50
+    add_column :summary_users, :fax_number,       :string,  :limit => 50
+    add_column :summary_users, :cellphone_number, :string,  :limit => 50
+    add_column :summary_users, :cellphone_email,  :string,  :limit => 100
   end
 
   def self.down

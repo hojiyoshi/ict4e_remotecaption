@@ -6,10 +6,11 @@
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
   :key         => '_ict4e_remotecaption_session',
+  :cookie_only => false,
   :secret      => '743ffde91a2e157448e41dd8f8f106ff73369ef60332cecbd3d09160d75c4bdd2fd4be054cd5f4c4f88fdc6bbf766d17ffdd81188a3cbfd64e0125713c174522'
 }
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rake db:sessions:create")
-# ActionController::Base.session_store = :active_record_store
+ ActionController::Base.session_store = :active_record_store
