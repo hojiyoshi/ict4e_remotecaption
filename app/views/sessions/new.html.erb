@@ -11,7 +11,7 @@
 </p>  
 <% end %>
 
-<p>ユーザー登録されていない方は、事前に「<%= link_to 'ユーザ新規登録', ICT4E_ACCOUNTS_URL + 'signup/remotecaption/account' %>」が必要です。</p>
+<p>ユーザー登録されていない方は、事前に「<%= link_to 'ユーザ新規登録', ICT4E_ACCOUNTS_URL + '/signup/remotecaption/account' %>」が必要です。</p>
 <% form_tag :controller => 'sessions', :action => 'create' do -%>
   <% fields_for :users do |f| %>
 <h2>登録済みユーザー情報</h2>
@@ -34,7 +34,7 @@
   <td>
     <%= f.password_field 'password', :id => 'password', :size => "10", :style => "ime-mode: disabled;",
       :class => "textC ascii", :required => "required" %>
-    <%= link_to 'パスワードを忘れた方', ICT4E_ACCOUNTS_URL + 'users/forget' %></td>
+    <%= link_to 'パスワードを忘れた方', ICT4E_ACCOUNTS_URL + '/users/forget' %></td>
   </tr>
 </table>
 <p><%= submit_tag 'ログイン', :id => 'login', :name => 'login' %></p>

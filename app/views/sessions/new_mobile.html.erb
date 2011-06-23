@@ -1,6 +1,14 @@
-<!--
-<form action="/session" method="post" btn>
--->
+<% if flash[:error].blank? %>
+<p>
+  登録済みユーザー情報のメールアドレスとパスワードを入力し、「ログイン」ボタンをおしてください。
+</p>
+<% else %>
+<p class="tCaution boxB">
+  入力されたメールアドレスもしくはパスワードが正しくありません。<br />
+  登録されているユーザー情報を入力してください。
+</p>
+<% end %>
+
 <% form_tag :controller => 'sessions', :action => 'create' , :guid=>'ON' do -%>
 <% fields_for :users do |f| %>
   メールアドレス： <br/>
@@ -17,5 +25,3 @@
 </form>
 -->
 <% end %>
-
-<%= flash[:error] %>

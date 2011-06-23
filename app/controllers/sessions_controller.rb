@@ -56,7 +56,7 @@ class SessionsController < ApplicationController
       end
       
       # ホーム画面にリダイレクトする。
-      redirect_back_or_default('/')
+      redirect_to :controller => 'home'
 
     # ログイン失敗時の処理
     else
