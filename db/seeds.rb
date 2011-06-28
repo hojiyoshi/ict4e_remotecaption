@@ -5,7 +5,26 @@
 #   
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Major.create(:name => 'Daley', :city => cities.first)
+User.delete_all("email = 'ict4e-admin@ict4everyone.jp'")
 Ict4eMasterDatum.delete_all
+
+#user_data = [
+#  {:id => 1000,:email => 'ict4e-admin@ict4everyone.jp', :crypted_password => '699317329412e41f864db6321d6685972c67d011', :salt => '544967d0ddaea9c35f5c1e105aee84892db63ca3',
+#   :created_at => '2011-01-01 00:00',:updated_at => '2011-01-01 00:00', :remember_token_expires_at => '2011-01-01 00:00', :activation_code => '8b8e9a0e0bb59c0c6420bb6c51e84ed45727165d',
+#   :activated_at => '2011-01-01 00:00', :user_type => 'a'
+#  }
+#]
+user = User.new(:email => 'ict4e-admin@ict4everyone.jp', :activated_at => '2011-01-01 00:00',
+  :crypted_password => '699317329412e41f864db6321d6685972c67d011', :salt => '544967d0ddaea9c35f5c1e105aee84892db63ca3', :user_type => 'a')#,
+ # :remember_token_expires_at => '2011-01-01 00:00',:created_at => '2011-01-01 00:00',:updated_at => '2011-01-01 00:00',:activated_at => '2011-01-01 00:00')
+user.save(false)
+#user_data.each do |item|
+
+#  User.create(:id => item[:id],:email => item[:email], :crypted_password => item[:crypted_password], :salt => item[:salt], :created_at => item[:created_at], :updated_at => item[:updated_at],
+#    :activation_code => item[:activation_code], :activated_at => item[:activated_at], :user_type => item[:user_type], :remember_token_expires_at => item[:remember_token_expires_at]
+#  )
+
+#end
 
 ict4e_master_data = [
   {:id => 100, :application_name => 'application_type', :item_data => '健常者', :sort_order => '100'},

@@ -3,24 +3,26 @@ class UserMailer < ActionMailer::Base
   
   def regist_summary_user(user)
     setup_email(user)
-    @subject    += NKF.nkf('-j --cp932 -m0','要約筆記依頼サービスのユーザ登録完了のお知らせ')
+    @subject    += NKF.nkf('-j --cp932 -m0','要約筆記利用者登録完了のお知らせ')
   end
 
-=begin
-  def signup_notification(user)
+  def regist_summary_inputer(user)
     setup_email(user)
-    @subject    += 'Please activate your new account'
-  
-    @body[:url]  = "http://YOURSITE/activate/#{user.activation_code}"
-  
+    @subject    += NKF.nkf('-j --cp932 -m0','要約筆記者登録完了のお知らせ')
+
+    # 表示サークル名を取得
+    circle_list = Array.new
+    user.summary_user.summary_user_circles.each{|circle|
+      circle_list.push(SummaryCircle.find(circle.summary_circle_id))
+    }
+
+    circle_name_list = Array.new
+    circle_list.each{|circle|
+      circle_name_list.push('「'+circle.circle_name+'」')
+    }
+    @body[:circle] = circle_name_list.join('、')
   end
-  
-  def activation(user)
-    setup_email(user)
-    @subject    += 'Your account has been activated!'
-    @body[:url]  = "http://YOURSITE/"
-  end
-=end
+
   protected
     def setup_email(user)
       @recipients  = user.email             # 宛先

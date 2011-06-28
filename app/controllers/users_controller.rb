@@ -146,12 +146,14 @@ class UsersController < ApplicationController
       unless current_user.summary_user.new_record?
         # 登録完了通知メールを送る。
         UserMailer.deliver_regist_summary_user(current_user)
+        # 入力者登録時メールを送る。
+        if @summary_user.inputer_flag == 1
+          UserMailer.deliver_regist_summary_inputer(current_user)
+        end
       end
     end
-  end
-
-  
-
+  end  
+=begin
   def activate
     logout_keeping_session!
     user = User.find_by_activation_code(params[:activation_code]) unless params[:activation_code].blank?
@@ -168,5 +170,5 @@ class UsersController < ApplicationController
       redirect_back_or_default('/')
     end
   end
-
+=end
 end

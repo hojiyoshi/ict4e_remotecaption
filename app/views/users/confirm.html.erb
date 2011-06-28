@@ -97,7 +97,7 @@
   </tr>
   <tr>
     <td>
-      <%= hbr(@summary_user.input_career_other) %>
+      自由記載：<br /><%= hbr(@summary_user.input_career_other) %>
     </td>
   </tr>
 
@@ -109,7 +109,7 @@
   </tr>
   <tr>
     <td>
-      <%= hbr(@summary_user.input_speed_other) %>
+      自由記載：<br /><%= hbr(@summary_user.input_speed_other) %>
     </td>
   </tr>
 
@@ -121,7 +121,7 @@
   </tr>
   <tr>
     <td>
-      <%= hbr(@summary_user.join_day_other) %>
+      自由記載：<br /><%= hbr(@summary_user.join_day_other) %>
     </td>
   </tr>
 
@@ -133,7 +133,7 @@
   </tr>
   <tr>
     <td>
-      <%= hbr(@summary_user.join_time_other) %>
+      自由記載：<br /><%= hbr(@summary_user.join_time_other) %>
     </td>
   </tr>
 
@@ -145,7 +145,7 @@
   </tr>
   <tr>
     <td>
-      <%= hbr(@summary_user.like_field_other) %>
+      自由記載：<br /><%= hbr(@summary_user.like_field_other) %>
     </td>
   </tr>
 
@@ -157,19 +157,21 @@
   </tr>
   <tr>
     <td>
-      <%= hbr(@summary_user.dislike_field_other) %>
+      自由記載：<br /><%= hbr(@summary_user.dislike_field_other) %>
     </td>
   </tr>
 
   <tr>
     <th rowspan="2"><label for="network_env">インターネット環境</label></th>
     <td>
-      <%= Ict4eMasterDatum.find(@summary_user.network_env).item_data %>
+      <% unless @summary_user.network_env.blank? %>
+        <%= Ict4eMasterDatum.find(@summary_user.network_env).item_data %>
+      <% end %>
     </td>
   </tr>
   <tr>
     <td>
-      <%= hbr(@summary_user.network_env_other) %>
+      自由記載：<br /><%= hbr(@summary_user.network_env_other) %>
     </td>
   </tr>
 
