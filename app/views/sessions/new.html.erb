@@ -23,7 +23,7 @@
         :type => 'email', :class=>'textB ascii', :required => 'required', :value=>@login %>
       <div style="margin-left: 10px;margin-top: 10px;">
         <label for="remember_me" class="fBold">
-          <%= f.check_box :remember_me,{:checked => @remember_me} %>&nbsp;<%= f.label 'remember_me', '自動ログインを行う。'%>
+          <%= f.check_box :remember_me,{:checked => @remember_me} %>&nbsp;<%= f.label 'remember_me', 'ログイン状態を保持（2週間）。'%>
         </label>
       </div>
       

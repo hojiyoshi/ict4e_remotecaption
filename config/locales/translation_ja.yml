@@ -19,6 +19,7 @@ ja:
         fax_number: "FAX番号"  #g
         cellphone_number: "携帯電話番号"  #g
         cellphone_email: "携帯電話メールアドレス"  #g
+        circle_list : "参加サークル"  #g
         joinday_list : "活動可能曜日"  #g
         jointime_list : "活動可能時間帯"  #g
         like_field : "得意分野"  #g

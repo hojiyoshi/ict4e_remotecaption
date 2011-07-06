@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110619151120) do
+ActiveRecord::Schema.define(:version => 20110704160517) do
 
   create_table "ict4e_master_data", :force => true do |t|
     t.string  "application_name", :limit => 64, :null => false
@@ -53,8 +53,12 @@ ActiveRecord::Schema.define(:version => 20110619151120) do
     t.integer "dislike_id"
     t.integer "joinday_id"
     t.integer "jointime_id"
+  end
+
+  create_table "summary_user_circles", :force => true do |t|
     t.integer "summary_circle_id"
     t.integer "summary_user_id"
+    t.string  "type",              :limit => 1
   end
 
   create_table "summary_users", :force => true do |t|

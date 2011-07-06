@@ -23,6 +23,13 @@ class UserMailer < ActionMailer::Base
     @body[:circle] = circle_name_list.join('、')
   end
 
+  # メール本文の文字コードを変換するメソッド
+  def create! (*)
+    super
+    @mail.body = NKF.nkf('-j --cp932 -m0',@mail.body)
+    return @mail
+  end
+
   protected
     def setup_email(user)
       @recipients  = user.email             # 宛先
