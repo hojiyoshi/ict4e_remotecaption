@@ -1,0 +1,5 @@
+<p>ようこそ、<%= current_user.email %>さん<br /></p>
+<p>
+<%= link_to '依頼登録', :controller => 'requests', :action => 'new' %> &nbsp;|&nbsp;
+<%= link_to 'ログアウト', logout_path %>
+</p>

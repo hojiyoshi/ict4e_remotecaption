@@ -1,0 +1,84 @@
+<h1 id="honbun">依頼登録<%= '：エラー' unless error_messages_for('summary_user').blank? %></h1>
+<p>
+  <div>必要事項の入力後、「確認画面へ進む」ボタンをクリックしてください。</div>
+  <div>コーディネーターが通訳依頼を適切に調整するための情報です。お手数ですが、最後まで正確に入力をお願い致します。</div>
+</p>
+<% form_tag :controller=>'requests',:action=>'confirm' do -%>
+<% fields_for :summary_request do |f| %>
+<table class="col">
+  <tr>
+    <th>依頼タイトル<span class="tCaution">(必須)</span></th>
+    <td>
+      <p class="fSmall">適切な依頼タイトルを入力してください。</p>
+      <span class="fSmall">入力例：パソコン要約筆記基本講座</span>
+      <%= f.text_field :request_title, :size=>64, :maxlength=>100 %><br/>
+      
+    </td>
+  </tr>
+  <tr>
+    <th>依頼実施日時<span class="tCaution">(必須)</span></th>
+    <td>
+      <p class="fSmall">要約筆記を依頼したい予定日時を選択してください。</p>
+    </td>
+  </tr>
+  <tr>
+    <th>依頼タイプ<span class="tCaution">(必須)</span></th>
+    <td>
+      <p class="fSmall">依頼したい要約筆記の種類を選択してください。</p>
+    </td>
+  </tr>
+  <tr>
+    <th>依頼サークル<span class="tCaution">(必須)</span></th>
+    <td>
+      <p class="fSmall">依頼したい要約筆記サークルを選択してください。</p>
+    </td>
+  </tr>
+  <tr>
+    <th>所要時間<span class="tCaution">(必須)</span></th>
+    <td>
+      <p class="fSmall">依頼したい要約筆記サークルを選択してください。</p>
+    </td>
+  </tr>
+  <tr>
+    <th rowspan="2">要約筆記の対象分野<span class="tCaution">(必須)</span></th>
+    <td>
+      <p class="fSmall">依頼する要約筆記の対象分野に1つ以上チェックを入れてください。</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span class="fSmall">要約筆記の対象分野に関してご自由に記載ください。</span><br />
+      <%= f.text_area :join_time_other, :rows =>4, :cols =>60 %>
+    </td>
+  </tr>
+  <tr>
+    <th>開催場所（住所）</th>
+    <td>
+      <p class="fSmall">手書き・パソコン入力要約筆記を依頼する場合は、開催場所の住所を入力してください。</p>
+    </td>
+  </tr>
+  <tr>
+    <th>開催場所（電話番号）</th>
+    <td>
+      <p class="fSmall">手書き・パソコン入力要約筆記を依頼する場合は、開催場所の電話番号を入力してください。</p>
+      <span class="fSmall"></span>
+    </td>
+  </tr>
+  <tr>
+    <th rowspan="2">開催場所（インターネット環境）</th>
+    <td>
+      <p class="fSmall">インターネット要約筆記を依頼する場合は、利用するインターネット環境を選択してください。</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span class="fSmall">インターネット環境についてご自由に記載ください。</span><br />
+      <%= f.text_area :join_time_other, :rows =>4, :cols =>60 %>
+    </td>
+  </tr>
+</table>
+<% end %>
+<p>
+  <%= submit_tag '確認画面へ', :id => 'next', :name => 'next' %>
+</p>
+<% end %>
